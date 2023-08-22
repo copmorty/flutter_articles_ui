@@ -31,10 +31,18 @@ class _DrawerMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(0),
-      leading: Icon(iconData, color: whiteColor),
-      title: Text(title, style: const TextStyle(color: whiteColor, fontWeight: FontWeight.w600)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Row(
+        children: [
+          Icon(
+            iconData,
+            color: whiteColorOp070,
+          ),
+          const SizedBox(width: 20),
+          Text(title, style: const TextStyle(color: whiteColor, fontWeight: FontWeight.w600, fontSize: 12)),
+        ],
+      ),
     );
   }
 }

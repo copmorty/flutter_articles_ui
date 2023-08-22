@@ -22,7 +22,7 @@ class TrendingAppBar extends StatelessWidget {
           ),
           const Text(
             'Trending Article',
-            style: TextStyle(color: whiteColor),
+            style: TextStyle(color: whiteColor, fontWeight: FontWeight.w600),
           ),
           IconButton(
             onPressed: () {},

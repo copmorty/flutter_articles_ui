@@ -9,6 +9,7 @@ const greyColorOp050 = Color(0x809E9E9E);
 const greyishColor = Color(0xFFF6F6F6);
 
 const whiteColor = Color(0xFFFFFFFF);
+const whiteColorOp070 = Color(0xB3FFFFFF);
 const whiteColorOp054 = Color(0x8AFFFFFF);
 const whiteColorOp045 = Color(0x0BFFFFFF);
 const whiteColorOp015 = Color(0x26FFFFFF);

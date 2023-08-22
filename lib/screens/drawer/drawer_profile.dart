@@ -12,18 +12,18 @@ class DrawerProfile extends StatelessWidget {
           foregroundImage: AssetImage('assets/images/profile_pic_1.png'),
           radius: 30,
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 25),
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Jacob G. Reed',
-              style: TextStyle(color: whiteColor, fontWeight: FontWeight.w700),
+              style: TextStyle(color: whiteColor, fontWeight: FontWeight.w700, fontSize: 11),
             ),
             Text(
               '37k followers',
-              style: TextStyle(color: whiteColor),
+              style: TextStyle(color: whiteColor, fontSize: 10),
             )
           ],
         )
