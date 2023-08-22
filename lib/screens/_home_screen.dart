@@ -60,29 +60,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: CustomSystemUiOverlayStyle.light,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            ListView(
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                SizedBox(width: _screenWidth * 0.75, child: DrawerScreen(_scrollToTrending)),
-                SizedBox(width: _screenWidth, child: TrendingScreen(_scrollToDrawer)),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: screenHorizontalPadding),
-              child: IconButton(
-                onPressed: _drawerIsOpen ? _scrollToTrending : _scrollToDrawer,
-                icon: Icon(
-                  _drawerIsOpen ? Icons.close : Icons.menu,
-                  color: whiteColor,
+      child: Scaffold(
+        backgroundColor: blackishColor,
+        body: SafeArea(
+          bottom: false,
+          child: Stack(
+            children: [
+              ListView(
+                controller: _scrollController,
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  SizedBox(width: _screenWidth * 0.75, child: DrawerScreen(_scrollToTrending)),
+                  SizedBox(width: _screenWidth, child: TrendingScreen(_scrollToDrawer)),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: screenHorizontalPadding),
+                child: IconButton(
+                  onPressed: _drawerIsOpen ? _scrollToTrending : _scrollToDrawer,
+                  icon: Icon(
+                    _drawerIsOpen ? Icons.close : Icons.menu,
+                    color: whiteColor,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

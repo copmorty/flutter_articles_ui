@@ -9,8 +9,7 @@ class TrendingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Container(
         color: whiteColor,
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,7 +17,6 @@ class TrendingScreen extends StatelessWidget {
             TrendingAppBar(),
           ],
         ),
-      ),
-    );
+      );
   }
 }

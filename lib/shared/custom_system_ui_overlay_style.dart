@@ -3,7 +3,7 @@ import 'package:flutter_articles_ui/shared/colors.dart';
 
 class CustomSystemUiOverlayStyle {
   static const light = SystemUiOverlayStyle(
-    statusBarColor: blackishColor,
+    statusBarColor: transparentColor,
     statusBarIconBrightness: Brightness.light,
     statusBarBrightness: Brightness.dark,
   );
