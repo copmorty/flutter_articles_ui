@@ -13,10 +13,14 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final _scrollController = ScrollController(initialScrollOffset: double.maxFinite);
   bool _drawerIsOpen = false;
   late double _screenWidth;
+  late AnimationController _primaryAnimationController;
+  late AnimationController _secondaryAnimationController;
+  late Animation<double> _paddingAnimation;
+  late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
@@ -24,31 +28,61 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
     });
+
+    _primaryAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+      reverseDuration: const Duration(milliseconds: 600),
+    );
+
+    _secondaryAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    _paddingAnimation = Tween<double>(begin: 0, end: 100).animate(
+      CurvedAnimation(parent: _primaryAnimationController, curve: Curves.ease, reverseCurve: Curves.easeInOutCubic),
+    );
+
+    _slideAnimation = Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero).animate(
+      CurvedAnimation(parent: _secondaryAnimationController, curve: Curves.easeInOutSine),
+    );
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _primaryAnimationController.dispose();
+    _secondaryAnimationController.dispose();
     super.dispose();
   }
 
   void _scrollToDrawer() {
+    _primaryAnimationController.forward();
+    _secondaryAnimationController.forward();
+
     _scrollController.animateTo(
       _scrollController.position.minScrollExtent,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 700),
       curve: Curves.fastOutSlowIn,
     );
+
     setState(() {
       _drawerIsOpen = true;
     });
   }
 
-  void _scrollToTrending() {
+  void _scrollToTrending() async {
+    _secondaryAnimationController.reverse();
+    await Future.delayed(_secondaryAnimationController.duration! * 0.3);
+    _primaryAnimationController.reverse();
+
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 600),
       curve: Curves.fastOutSlowIn,
     );
+
     setState(() {
       _drawerIsOpen = false;
     });
@@ -71,16 +105,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  SizedBox(width: _screenWidth * 0.75, child: DrawerScreen(_scrollToTrending)),
-                  SizedBox(width: _screenWidth, child: TrendingScreen(_scrollToDrawer)),
+                  SizedBox(
+                    width: _screenWidth * 0.75,
+                    child: DrawerScreen(_slideAnimation),
+                  ),
+                  SizedBox(
+                    width: _screenWidth,
+                    child: AnimatedBuilder(
+                      animation: _paddingAnimation,
+                      builder: (context, child) => TrendingScreen(_paddingAnimation.value),
+                    ),
+                  ),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: screenHorizontalPadding),
                 child: IconButton(
                   onPressed: _drawerIsOpen ? _scrollToTrending : _scrollToDrawer,
-                  icon: Icon(
-                    _drawerIsOpen ? Icons.close : Icons.menu,
+                  icon: AnimatedIcon(
+                    icon: AnimatedIcons.menu_close,
+                    progress: _primaryAnimationController,
                     color: whiteColor,
                   ),
                 ),

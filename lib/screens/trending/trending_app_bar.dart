@@ -9,7 +9,7 @@ class TrendingAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: blackishColor,
-      padding: const EdgeInsets.symmetric(horizontal: screenHorizontalPadding),
+      padding: const EdgeInsets.only(left: screenHorizontalPadding, right: screenHorizontalPadding, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

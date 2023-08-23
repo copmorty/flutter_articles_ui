@@ -3,20 +3,26 @@ import 'package:flutter_articles_ui/screens/trending/trending_app_bar.dart';
 import 'package:flutter_articles_ui/shared/colors.dart';
 
 class TrendingScreen extends StatelessWidget {
-  final void Function() showDrawer;
+  final double verticalPadding;
 
-  const TrendingScreen(this.showDrawer, {super.key});
+  const TrendingScreen(this.verticalPadding, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: whiteColor,
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TrendingAppBar(),
-          ],
-        ),
-      );
+      color: blackishColor,
+      padding: EdgeInsets.symmetric(vertical: verticalPadding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const TrendingAppBar(),
+          Expanded(
+            child: Container(
+              color: whiteColor,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
