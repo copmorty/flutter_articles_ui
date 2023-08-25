@@ -14,12 +14,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  final _scrollController = ScrollController(initialScrollOffset: double.maxFinite);
+  final ScrollController _scrollController = ScrollController(keepScrollOffset: false);
   bool _drawerIsOpen = false;
   late double _screenWidth;
   late AnimationController _primaryAnimationController;
   late AnimationController _secondaryAnimationController;
-  late Animation<double> _paddingAnimation;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
   @override
@@ -40,8 +41,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 800),
     );
 
-    _paddingAnimation = Tween<double>(begin: 0, end: 100).animate(
-      CurvedAnimation(parent: _primaryAnimationController, curve: Curves.ease, reverseCurve: Curves.easeInOutCubic),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.8).animate(
+      CurvedAnimation(parent: _primaryAnimationController, curve: Curves.easeOutExpo, reverseCurve: Curves.easeInOutCubic),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 1, end: 0).animate(
+      CurvedAnimation(parent: _primaryAnimationController, curve: Curves.ease),
     );
 
     _slideAnimation = Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero).animate(
@@ -111,9 +116,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                   SizedBox(
                     width: _screenWidth,
-                    child: AnimatedBuilder(
-                      animation: _paddingAnimation,
-                      builder: (context, child) => TrendingScreen(_paddingAnimation.value),
+                    child: TrendingScreen(
+                      scaleAnimation: _scaleAnimation,
+                      fadeAnimation: _fadeAnimation,
+                      drawerIsOpen: _drawerIsOpen,
                     ),
                   ),
                 ],

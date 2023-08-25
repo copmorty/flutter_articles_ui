@@ -5,7 +5,9 @@ import 'package:flutter_articles_ui/screens/trending/widgets/trending_profile.da
 import 'package:flutter_articles_ui/shared/data/data_source.dart';
 
 class TrendingBody extends StatefulWidget {
-  const TrendingBody({super.key});
+  final Animation<double> fadeAnimation;
+
+  const TrendingBody(this.fadeAnimation, {super.key});
 
   @override
   State<TrendingBody> createState() => _TrendingBodyState();
@@ -41,7 +43,7 @@ class _TrendingBodyState extends State<TrendingBody> {
 
     return Column(
       children: [
-         SizedBox(height: screenHeight*0.06),
+        SizedBox(height: screenHeight * 0.06),
         Stack(
           children: [
             SizedBox(
@@ -64,8 +66,11 @@ class _TrendingBodyState extends State<TrendingBody> {
             ),
           ],
         ),
-         SizedBox(height: screenHeight*0.06),
-        const TrendingProfile(),
+        SizedBox(height: screenHeight * 0.06),
+        FadeTransition(
+          opacity: widget.fadeAnimation,
+          child: const TrendingProfile(),
+        ),
       ],
     );
   }

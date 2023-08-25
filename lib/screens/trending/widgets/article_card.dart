@@ -7,10 +7,12 @@ class ArticleCard extends StatelessWidget {
   final Article article;
   final int index;
   final double page;
-  static late double _scaleCard;
-  static const _minScale = 0.95;
-  static const _maxScale = 1.0;
-  static const _scaleDiff = _maxScale - _minScale;
+  static late double _cardOverlay;
+  static const double _maxOverlay = 0.4;
+  static late double _cardScale;
+  static const double _minScale = 0.95;
+  static const double _maxScale = 1.0;
+  static const double _scaleDiff = _maxScale - _minScale;
 
   const ArticleCard({
     super.key,
@@ -25,15 +27,18 @@ class ArticleCard extends StatelessWidget {
     final pageFract = page % 1;
 
     if (index == pageInt) {
-      _scaleCard = _minScale + (1 - pageFract) * _scaleDiff;
+      _cardScale = _minScale + (1 - pageFract) * _scaleDiff;
+      _cardOverlay = pageFract * _maxOverlay;
     } else if (index == pageInt + 2) {
-      _scaleCard = _minScale;
+      _cardScale = _minScale;
+      _cardOverlay = _maxOverlay;
     } else {
-      _scaleCard = _minScale + pageFract * _scaleDiff;
+      _cardScale = _minScale + pageFract * _scaleDiff;
+      _cardOverlay = (1 - pageFract) * _maxOverlay;
     }
 
     return Transform.scale(
-      scale: _scaleCard,
+      scale: _cardScale,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Stack(
@@ -143,6 +148,11 @@ class ArticleCard extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+            ),
+            Positioned.fill(
+              child: Container(
+                color: Colors.white.withOpacity(_cardOverlay),
               ),
             ),
           ],
