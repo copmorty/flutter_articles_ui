@@ -1,16 +1,8 @@
-# flutter_articles_ui
+# Flutter Articles UI Challenge
 
-A new Flutter project.
+https://github.com/copmorty/flutter_articles_ui/assets/23016725/5a326975-8633-41a4-b2bd-fc0b4e0c212a
 
-## Getting Started
+## Description
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This Flutter UI challenge involves designing a stylish user interface with captivating animations for an Articles Application.\
+It was inspired by [Flutter UI Dev](https://twitter.com/ui_flutter/status/1694346607972495753), and the design is by [Shojol Islam](https://dribbble.com/shots/4020189-Scroll-and-sidebar-interaction).
